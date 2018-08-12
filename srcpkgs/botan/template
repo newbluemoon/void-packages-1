@@ -60,6 +60,12 @@ do_configure() {
 		_cpu="mips32"
 		_arch="mips"
 		;;
+	ppc*)
+		_cpu="powerpc"
+		_arch="powerpc"
+		_march="powerpc"
+		_mtune="powerpc"
+		;;
 	esac
 
 	python configure.py \
