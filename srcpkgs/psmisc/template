@@ -10,3 +10,7 @@ homepage="https://gitlab.com/psmisc/psmisc"
 license="GPL-2"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.xz"
 checksum=2e84d474cf75dfbe3ecdacfb797bbfab71a35c7c2639d1b9f6d5f18b2149ba30
+
+case "$XBPS_TARGET_MACHINE" in
+	ppc-musl) CFLAGS+=" -D__ppc__" ;;
+esac
