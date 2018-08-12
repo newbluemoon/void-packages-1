@@ -18,6 +18,10 @@ homepage="https://www.gnu.org/software/gdb/"
 distfiles="${GNU_SITE}/${pkgname}/${pkgname}-${version}.tar.xz"
 checksum=97dcc3169bd430270fc29adb65145846a58c1b55cdbb73382a4a89307bdad03c
 
+if [ "${XBPS_TARGET_MACHINE%-musl}" = ppc ]; then
+	configure_args+=" --enable-secureplt"
+fi
+
 if [ "${CROSS_BUILD}" ]; then
 	# Make python3.x detection work in cross builds
 	CFLAGS+=" -I${XBPS_CROSS_BASE}/${py3_inc}"
