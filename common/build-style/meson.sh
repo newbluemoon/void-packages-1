@@ -15,6 +15,10 @@ do_configure() {
 				_MESON_TARGET_ENDIAN=big
 				_MESON_CPU_FAMILY=mips
 				;;
+			ppc|ppc-musl)
+				_MESON_TARGET_ENDIAN=big
+				_MESON_CPU_FAMILY=ppc
+				;;
 			armv*)
 				_MESON_CPU_FAMILY=arm
 				;;
