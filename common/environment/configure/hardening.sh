@@ -14,12 +14,18 @@ if [ -z "$nopie" ]; then
 		esac
 		CFLAGS="-specs=${_GCCSPECSFILE} ${CFLAGS}"
 		CXXFLAGS="-specs=${_GCCSPECSFILE} ${CXXFLAGS}"
-		LDFLAGS="-specs=${_GCCSPECSDIR}/hardened-ld -Wl,-z,relro -Wl,-z,now ${LDFLAGS}"
+		case "$XBPS_TARGET_MACHINE" in
+			ppc*) LDFLAGS="-specs=${_GCCSPECSDIR}/hardened-ppc-ld -Wl,-z,relro -Wl,-z,now -Wl,--secure-plt ${LDFLAGS}" ;;
+			*) LDFLAGS="-specs=${_GCCSPECSDIR}/hardened-ld -Wl,-z,relro -Wl,-z,now ${LDFLAGS}" ;;
+		esac
 	else
 		# Enable FORITFY_SOURCE=2
 		CFLAGS="-D_FORTIFY_SOURCE=2 ${CFLAGS}"
 		CXXFLAGS="-D_FORTIFY_SOURCE=2 ${CXXFLAGS}"
-		LDFLAGS="-Wl,-z,relro -Wl,-z,now ${LDFLAGS}"
+		case "$XBPS_TARGET_MACHINE" in
+			ppc*) LDFLAGS="-Wl,-z,relro -Wl,-z,now -Wl,--secure-plt ${LDFLAGS}" ;;
+			*) LDFLAGS="-Wl,-z,relro -Wl,-z,now ${LDFLAGS}" ;;
+		esac
 	fi
 else
 	CFLAGS="-fno-PIE ${CFLAGS}"
