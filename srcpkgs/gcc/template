@@ -74,6 +74,7 @@ case "$XBPS_TARGET_MACHINE" in
 	mipshf-musl) _triplet="mips-linux-muslhf";;
 	mipsel-musl) _triplet="mipsel-linux-musl";;
 	mipselhf-musl) _triplet="mipsel-linux-muslhf";;
+	ppc-musl) _triplet="powerpc-linux-musl";;
 esac
 case "$XBPS_TARGET_MACHINE" in
 	*-musl)	 depends+=" musl-devel";;
@@ -119,6 +120,7 @@ do_configure() {
 		mipsel-musl) _args+=" --with-arch=mips32r2 --with-float=soft"; _hash=sysv;;
 		mipshf-musl) _args+=" --with-arch=mip32r2 --with-float=hard";;
 		mips-musl) _args+=" --with-arch=mip32r2 --with-float=soft";;
+		ppc-musl) _args+=" --with-cpu=powerpc --target=powerpc-linux-musl --disable-decimal-float --enable-secureplt --with-long-double=64";;
 		armv5*) _args+=" --with-arch=armv5te --with-float=soft";;
 		armv6l*) _args+=" --with-arch=armv6 --with-fpu=vfp --with-float=hard";;
 		armv7l*) _args+=" --with-arch=armv7-a --with-fpu=vfpv3 --with-float=hard";;
@@ -176,6 +178,11 @@ do_configure() {
 			;;
 	esac
 
+	case "$XBPS_TARGET_MACHINE" in
+		ppc*) _args+=" --disable-vtable-verify" ;;
+		*) _args+=" --enable-vtable-verify" ;;
+	esac
+
 	export CFLAGS="${CFLAGS/-D_FORTIFY_SOURCE=2/}"
 	export CXXFLAGS="${CXXFLAGS/-D_FORTIFY_SOURCE=2/}"
 
@@ -195,7 +202,6 @@ do_configure() {
 	_args+=" --enable-shared"
 	_args+=" --enable-lto"
 	_args+=" --enable-plugins"
-	_args+=" --enable-vtable-verify"
 	_args+=" --enable-linker-build-id"
 	_args+=" --enable-serial-configure"
 	_args+=" --disable-werror"
