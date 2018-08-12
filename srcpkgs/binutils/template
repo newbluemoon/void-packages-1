@@ -38,6 +38,9 @@ do_configure() {
 	if [ "${XBPS_TARGET_MACHINE%-musl}" = "x86_64" ]; then
 		CONFIGFLAG+=" --enable-targets=x86_64-pep"
 	fi
+	if [ "${XBPS_TARGET_MACHINE%-musl}" = "ppc" ]; then
+		CONFIGFLAG+=" --enable-secureplt"
+	fi
 	./configure --build=$XBPS_TRIPLET --prefix=/usr --enable-threads \
 		--enable-plugins --enable-secureplt --with-mmap \
 		--disable-shared --enable-gold --disable-werror \
