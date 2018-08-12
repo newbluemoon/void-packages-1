@@ -107,6 +107,10 @@ do_configure() {
 				_opts+=" -arch mips"
 				_spec="mipsel-linux-muslhf-c++"
 				;;
+			ppc-musl)
+				_opts+=" -arch powerpc"
+				_spec="powerpc-linux-musl-c++"
+				;;
 			*-musl)
 				_opts+=" -arch arm"
 				_spec="${XBPS_TARGET_MACHINE}-linux-musl-c++"
