@@ -1,0 +1,16 @@
+# Template file for 'yaboot'
+pkgname=yaboot
+version=1.3.17
+revision=1
+build_style=gnu-makefile
+makedepends="e2fsprogs-devel"
+short_desc="PowerPC bootloader for Open Firmware based machines"
+maintainer="newbluemoon <blaumolch@mailbox.org>"
+license="GPL-2.0-or-later"
+homepage="http://yaboot.ozlabs.org/"
+distfiles="http://yaboot.ozlabs.org/releases/yaboot-${version}.tar.gz"
+checksum=2fb738d8fd48b94ab2534a4fdf63738ad02c1a30f4b2add91f837baff8fa2aa1
+
+pre_build() {
+	sed -i -e "/-Werror/d" Makefile
+}
