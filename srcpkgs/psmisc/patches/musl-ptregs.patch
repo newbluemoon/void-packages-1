@@ -1,0 +1,24 @@
+cf. http://www.openwall.com/lists/musl/2017/06/03/7
+
+--- src/peekfd.c.orig
++++ src/peekfd.c
+@@ -21,13 +21,19 @@
+ #include <config.h>
+ #endif
+ 
++#if defined (__ppc__)
++#define __WORDSIZE 32
++#endif
++
+ #include <unistd.h>
+ #include <stdio.h>
+ #include <sys/ptrace.h>
+ #include <sys/types.h>
+ #include <sys/wait.h>
+ #include <sys/syscall.h>
++#define __ASSEMBLY__
+ #include <asm/ptrace.h>
++#undef __ASSEMBLY__
+ #include <byteswap.h>
+ #include <endian.h>
+ #include <sys/user.h>
