@@ -35,6 +35,7 @@ pre_configure() {
 		cd host-build
 		env CC=cc LD=ld CXX=g++ AR=ar RANLIB=ranlib \
 			AS=as STRIP=strip CFLAGS="-Os -fPIE" CXXFLAGS="-Os -fPIE" \
+			LDFLAGS="-Wl,-z,relro -Wl,-z,now" \
 			../configure --prefix=/
 		make ${makejobs}
 		mkdir -p ${wrksrc}/host-icu/config
