@@ -1,0 +1,14 @@
+--- configure.orig	2018-06-27 01:39:50.000000000 +0200
++++ configure	2018-08-25 08:20:56.420702095 +0200
+@@ -5286,7 +5286,11 @@
+         powerpc64-linux-gnu
+ #  endif
+ # elif defined(__powerpc__)
++#  if definded(__GLIBC__)
+         powerpc-linux-gnu
++#  else
++        powerpc-linux-musl
++#  endif
+ # elif defined(__s390x__)
+         s390x-linux-gnu
+ # elif defined(__s390__)
