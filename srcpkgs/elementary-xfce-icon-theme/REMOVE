@@ -1,0 +1,7 @@
+case ${ACTION} in
+post)
+	for d in "" -dark -darker -darkest; do
+		rm -r usr/share/icons/elementary-xfce${d}
+	done
+	;;
+esac

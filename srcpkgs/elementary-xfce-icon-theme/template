@@ -1,0 +1,29 @@
+# Template file for 'elementary-xfce-icon-theme'
+pkgname=elementary-xfce-icon-theme
+version=0.13.1
+revision=1
+archs=noarch
+wrksrc="elementary-xfce-${version}"
+build_style=configure
+configure_args="--prefix=/usr"
+hostmakedepends="gtk+3-devel librsvg optipng pkg-config"
+depends="adwaita-icon-theme librsvg"
+short_desc="Elementary icons forked from upstream, extended and maintained for Xfce"
+maintainer="newbluemoon <blaumolch@mailbox.org>"
+license="GPL-2.0-or-later"
+homepage="https://shimmerproject.org/"
+distfiles="https://github.com/shimmerproject/elementary-xfce/archive/v${version}.tar.gz"
+checksum=b46402629660908ec1e266b41186ee0e8662bd3a6b537e3ca5c66e5074136c11
+disable_parallel_build=yes
+
+if [ "$CROSS_BUILD" ]; then
+	post_extract() {
+		sed -i -e "s;pkg-config;/usr/bin/pkg-config;" svgtopng/Makefile
+	}
+fi
+
+post_install() {
+	for d in "" -dark -darker -darkest; do
+		rm ${DESTDIR}/usr/share/icons/elementary-xfce${d}/{AUTHORS,CONTRIBUTORS,LICENSE}
+	done
+}
